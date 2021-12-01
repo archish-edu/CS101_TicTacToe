@@ -7,6 +7,7 @@ public class TicTacToe {
     // board is a 1d array initialized with numbers 1-9
     public static void main(String[] args){
         Scanner input  = new Scanner(System.in);
+        printCurrentBoard(board);
 
         
 
@@ -14,8 +15,15 @@ public class TicTacToe {
         
 
     }
-    public static void printBoard(String[] board){
-        System.out.println(" "+board[0]+" "+"|");
+    public static void printCurrentBoard(String[] board){
+        System.out.println();
+        System.out.println(" "+board[0]+" "+"|" + " "+board[1]+" "+"|" + " "+board[2]+" ");
+        System.out.println("---+---+---");
+        System.out.println(" "+board[3]+" "+"|" + " "+board[4]+" "+"|" + " "+board[5]+" ");
+        System.out.println("---+---+---");
+        System.out.println(" "+board[6]+" "+"|" + " "+board[7]+" "+"|" + " "+board[8]+" ");
+        System.out.println();
+
     }
     
     
