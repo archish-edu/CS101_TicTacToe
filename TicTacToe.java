@@ -2,7 +2,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TicTacToe {
-    static String[] board = {"1","2","3","4","5","6","7","9","9"};
+    static String[] board = {"1","2","3","4","5","6","7","8","9"};
     static String currentPlayer;
 
     // board is a 1d array initialized with numbers 1-9
