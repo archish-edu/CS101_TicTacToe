@@ -33,9 +33,9 @@ public class TicTacToe {
 
 
 
-
-        
-
+    //public static boolean potentialVerticalWin()
+    //public static boolean potentialHorizontalWin()
+    //public static boolean potentialDiaganolWin()
         
         
 
