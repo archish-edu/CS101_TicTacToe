@@ -3,12 +3,12 @@ import java.util.Scanner;
 
 public class TicTacToe {
     static String[] board = {"1","2","3","4","5","6","7","8","9"};
-    static String currentPlayer;
+    static boolean playerX;
 
     // board is a 1d array initialized with numbers 1-9
     public static void main(String[] args){
         Scanner input  = new Scanner(System.in);
-        currentPlayer = "X";
+        playerX = true;
         boolean win = false;
 
         printCurrentBoard(board);
@@ -21,6 +21,29 @@ public class TicTacToe {
                 if(slot > 9 || slot < 1) {
                     System.out.println("Try again! Please enter a number between 1 and 9!");
                     continue;
+                }
+                // x turn
+                if(playerX == true) {
+                    System.out.println(slot);
+                    System.out.println(slot-1);
+                    if(board[slot-1].equals(String.valueOf(slot))) {
+                        board[slot-1] = "X";
+                        playerX = false;
+                        printCurrentBoard(board);
+                        // call win checker here!
+                    } else {
+                        System.out.println("Try again! Slot is already taken.");
+                    }
+                // o turn
+                } else if (playerX == false) {
+                    if(board[slot-1].equals(String.valueOf(slot))) {
+                        board[slot-1] = "O";
+                        playerX = true;
+                        printCurrentBoard(board);
+                        // call win checker here!
+                    } else {
+                        System.out.println("Try again! Slot is already taken.");
+                    }
                 }
 
             } catch (InputMismatchException e) {
@@ -35,7 +58,7 @@ public class TicTacToe {
 
     //public static boolean potentialVerticalWin()
     //public static boolean potentialHorizontalWin()
-    //public static boolean potentialDiaganolWin()
+    //public static boolean potentialDiagonalWin()
         
         
 
