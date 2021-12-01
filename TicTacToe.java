@@ -10,6 +10,7 @@ public class TicTacToe {
         Scanner input  = new Scanner(System.in);
         playerX = true;
         boolean win = false;
+        int numTurns = 0;
 
         printCurrentBoard(board);
 
@@ -22,6 +23,11 @@ public class TicTacToe {
                     System.out.println("Try again! Please enter a number between 1 and 9!");
                     continue;
                 }
+                if (numTurns > 8) {
+                    printCurrentBoard(board);
+                    System.out.println("Draw!");
+                    break;
+                }
                 // x turn
                 if(playerX == true) {
 
@@ -29,6 +35,7 @@ public class TicTacToe {
                         board[slot-1] = "X";
                         playerX = false;
                         printCurrentBoard(board);
+                        numTurns += 1;
                         // call win checker here!
                     } else {
                         System.out.println("Try again! Slot is already taken.");
@@ -39,6 +46,7 @@ public class TicTacToe {
                         board[slot-1] = "O";
                         playerX = true;
                         printCurrentBoard(board);
+                        numTurns += 1;
                         // call win checker here!
                     } else {
                         System.out.println("Try again! Slot is already taken.");
@@ -47,7 +55,6 @@ public class TicTacToe {
 
             } catch (InputMismatchException e) {
                 System.out.println("Error! Please enter a valid input!");
-                win = true;
             }
 
             
