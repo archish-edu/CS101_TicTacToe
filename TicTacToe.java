@@ -24,8 +24,7 @@ public class TicTacToe {
                 }
                 // x turn
                 if(playerX == true) {
-                    System.out.println(slot);
-                    System.out.println(slot-1);
+
                     if(board[slot-1].equals(String.valueOf(slot))) {
                         board[slot-1] = "X";
                         playerX = false;
