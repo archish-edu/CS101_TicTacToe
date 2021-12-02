@@ -126,13 +126,24 @@ public class TicTacToe {
 }
 
 class cpu {
-    int predictBestMove(String[][] board){
+    int predictBestMove(String[] board){
         int place = 0; // will return from 1-9 if valid move available
 
-        // if 2 in a row already, place in 3rd spot
-        // else if 1 placed already, place in 2nd spot
+        if ()//2 in a row already, 
+        {
+            //place = 3rd spot
+        }
+        else if () //1 placed already, 
+        {
+            //place = 2nd spot
+        }
+        
         // else place in first available random spot 
-
+        else {
+            int randPlace = (int) (Math.random() * 9.0);
+            return randPlace;
+        }
+        
         return place;
 
 
