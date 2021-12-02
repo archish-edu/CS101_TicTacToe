@@ -71,17 +71,44 @@ public class TicTacToe {
     }
     public static boolean potentialVerticalWin(String[] board) {
         // checks for vertical win
-        String[] verticalWinArray = new String[3];
-        verticalWinArray[0] = board[0]+board[3]+board[6];
-        verticalWinArray[1] = board[1]+board[4]+board[7];
-        verticalWinArray[2] = board[2]+board[5]+board[8];
-        for(String check : verticalWinArray)
+        String[] winArray = new String[3];
+        winArray[0] = board[0]+board[3]+board[6];
+        winArray[1] = board[1]+board[4]+board[7];
+        winArray[2] = board[2]+board[5]+board[8];
+        for(String check : winArray)
             if(check.equals("XXX") || check.equals("OOO")){
                 return true;
             }
         
         return false;
     }
+
+    public static boolean potentialHorizontallWin(String[] board) {
+        // checks for horizontal win
+        String[] winArray = new String[3];
+        winArray[0] = board[0]+board[1]+board[2];
+        winArray[1] = board[3]+board[4]+board[5];
+        winArray[2] = board[6]+board[7]+board[8];
+        for(String check : winArray)
+            if(check.equals("XXX") || check.equals("OOO")){
+                return true;
+            }
+        
+        return false;
+    }
+    public static boolean potentialDiagonalWin(String[] board) {
+        // checks for horizontal win
+        String[] winArray = new String[2];
+        winArray[0] = board[0]+board[4]+board[8];
+        winArray[1] = board[2]+board[4]+board[6];
+        for(String check : winArray)
+            if(check.equals("XXX") || check.equals("OOO")){
+                return true;
+            }
+        
+        return false;
+    }
+    
     public static void printCurrentBoard(String[] board){
         System.out.println();
         System.out.println(" "+board[0]+" "+"|" + " "+board[1]+" "+"|" + " "+board[2]+" ");
