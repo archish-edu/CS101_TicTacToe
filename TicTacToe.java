@@ -62,12 +62,25 @@ public class TicTacToe {
 
 
 
-    //public static boolean potentialVerticalWin()
+    
     //public static boolean potentialHorizontalWin()
     //public static boolean potentialDiagonalWin()
         
         
 
+    }
+    public static boolean potentialVerticalWin(String[] board) {
+        // checks for vertical win
+        String[] verticalWinArray = new String[3];
+        verticalWinArray[0] = board[0]+board[3]+board[6];
+        verticalWinArray[1] = board[1]+board[4]+board[7];
+        verticalWinArray[2] = board[2]+board[5]+board[8];
+        for(String check : verticalWinArray)
+            if(check.equals("XXX") || check.equals("OOO")){
+                return true;
+            }
+        
+        return false;
     }
     public static void printCurrentBoard(String[] board){
         System.out.println();
