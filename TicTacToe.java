@@ -23,23 +23,23 @@ public class TicTacToe {
                     System.out.println("Try again! Please enter a number between 1 and 9!");
                     continue;
                 }
-                if (numTurns > 7) {
-                    printCurrentBoard(board);
-                    System.out.println("Draw! No more possible moves.");
-                    break;
-                }
+
                 // x turn
                 if(playerX == true) {
 
                     if(board[slot-1].equals(String.valueOf(slot))) {
+                        numTurns += 1;
                         board[slot-1] = "X";
                         playerX = false;
                         printCurrentBoard(board);
                         if(potentialDiagonalWin(board) == true || potentialHorizontalWin(board) == true || potentialVerticalWin(board) == true) {
                             System.out.println("X wins!"); 
                             break; 
+                        } else if(potentialDraw(board) == true) {
+                            System.out.println("Draw! No more possible moves");
+                            break;
                         }
-                        numTurns += 1;
+                        
                         // call win checker here!
                     } else {
                         System.out.println("Try again! Slot is already taken.");
@@ -47,14 +47,18 @@ public class TicTacToe {
                 // o turn
                 } else if (playerX == false) {
                     if(board[slot-1].equals(String.valueOf(slot))) {
+                        numTurns += 1;
                         board[slot-1] = "O";
                         playerX = true;
                         printCurrentBoard(board);
                         if(potentialDiagonalWin(board) == true || potentialHorizontalWin(board) == true || potentialVerticalWin(board) == true) {
                             System.out.println("O wins!"); 
                             break; 
+                        } else if(potentialDraw(board) == true) {
+                            System.out.println("Draw! No more possible moves");
+                            break;
                         }
-                        numTurns += 1;
+                        
                     } else {
                         System.out.println("Try again! Slot is already taken.");
                     }
@@ -62,6 +66,7 @@ public class TicTacToe {
 
             } catch (InputMismatchException e) {
                 System.out.println("Error! Please enter a valid input!");
+                break;
             }
 
             
@@ -116,6 +121,19 @@ public class TicTacToe {
         return false;
     }
     
+    public static boolean potentialDraw(String[] board) {
+        int totalPlacesTaken = 0;
+        for(String place : board) {
+            if(place.equals("X") || place.equals("O")){
+                totalPlacesTaken += 1;
+            }
+        }
+        if(totalPlacesTaken == 9)
+            return true;
+        
+        return false;
+    }
+
     public static void printCurrentBoard(String[] board){
         System.out.println();
         System.out.println(" "+board[0]+" "+"|" + " "+board[1]+" "+"|" + " "+board[2]+" ");
