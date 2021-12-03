@@ -23,9 +23,9 @@ public class TicTacToe {
                     System.out.println("Try again! Please enter a number between 1 and 9!");
                     continue;
                 }
-                if (numTurns > 8) {
+                if (numTurns > 7) {
                     printCurrentBoard(board);
-                    System.out.println("Draw!");
+                    System.out.println("Draw! No more possible moves.");
                     break;
                 }
                 // x turn
@@ -35,6 +35,10 @@ public class TicTacToe {
                         board[slot-1] = "X";
                         playerX = false;
                         printCurrentBoard(board);
+                        if(potentialDiagonalWin(board) == true || potentialHorizontalWin(board) == true || potentialVerticalWin(board) == true) {
+                            System.out.println("X wins!"); 
+                            break; 
+                        }
                         numTurns += 1;
                         // call win checker here!
                     } else {
@@ -46,8 +50,11 @@ public class TicTacToe {
                         board[slot-1] = "O";
                         playerX = true;
                         printCurrentBoard(board);
+                        if(potentialDiagonalWin(board) == true || potentialHorizontalWin(board) == true || potentialVerticalWin(board) == true) {
+                            System.out.println("O wins!"); 
+                            break; 
+                        }
                         numTurns += 1;
-                        // call win checker here!
                     } else {
                         System.out.println("Try again! Slot is already taken.");
                     }
@@ -83,7 +90,7 @@ public class TicTacToe {
         return false;
     }
 
-    public static boolean potentialHorizontallWin(String[] board) {
+    public static boolean potentialHorizontalWin(String[] board) {
         // checks for horizontal win
         String[] winArray = new String[3];
         winArray[0] = board[0]+board[1]+board[2];
@@ -126,7 +133,7 @@ public class TicTacToe {
 }
 
 class cpu {
-    int predictBestMove(String[] board){
+    /*int predictBestMove(String[] board){
         int place = 0; // will return from 1-9 if valid move available
 
         if ()//2 in a row already, 
@@ -147,7 +154,7 @@ class cpu {
         return place;
 
 
-    }
+    } */
 
 }
 
