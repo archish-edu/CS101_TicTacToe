@@ -34,7 +34,7 @@ public class TicTacToe {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Enter a valid input!");
-                slot = input.nextInt();
+                mode = input.nextInt();
                 
 
 
