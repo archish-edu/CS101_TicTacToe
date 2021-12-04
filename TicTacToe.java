@@ -189,7 +189,11 @@ public class TicTacToe {
                     System.out.println(player + "'s turn \nEnter slot: ");
                     slot = input.nextInt();
                 } else {
-                    slot = predictBestMove("O");
+                    if(simulateXWin() == false)
+                        slot = predictBestMove("O");
+                    else {
+                        slot = predictBestMove("X");
+                    }
                 }
                 if(slot > 9 || slot < -1) {
                     System.out.println("Try again! Please enter a number between 1 and 9!");
@@ -218,7 +222,6 @@ public class TicTacToe {
                         board[slot-1] = "X";
 
                         consecutiveStrikeP1 = 0;
-
 
                         playerX = false;
                         printCurrentBoard();
@@ -372,6 +375,23 @@ public class TicTacToe {
         }
 
         return possibleMoves.get((int) (Math.random() * possibleMoves.size()) );
+    }
+    public static boolean simulateXWin() {
+        String[] boardClone = board.clone();
+        String[] temp = board;
+        board = boardClone;
+
+        int move = predictBestMove("X");
+
+        board[move-1] = "X";
+
+        if(winCheck() == true) {
+            board = temp;
+            return true;
+        } else {
+            board = temp;
+            return false;
+        }
     } 
 
 }
