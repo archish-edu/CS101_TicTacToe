@@ -205,11 +205,7 @@ public class TicTacToe {
             int place = possibleMoves.get(moveCount);
             temp = board[place-1];
             board[place-1] = player;
-            System.out.println("TEST BOARD: ");
-            printCurrentBoard();
             if(winCheck() == true) {
-                System.out.println("TEMP BOARD WIN CHECK");
-                printCurrentBoard();
                 board[place-1] = temp;
                 return place;
             } 
