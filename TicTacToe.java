@@ -58,7 +58,7 @@ public class TicTacToe {
                     player = "Player 2";
                 }
                 
-                System.out.println(player + "'s turn \nEnter slot: ");
+                System.out.println(player + "'s turn \nEnter slot (or -1 for best predicted move): ");
                 slot = input.nextInt();
 
                 if(slot > 9 || slot < -1) {
@@ -186,7 +186,7 @@ public class TicTacToe {
                     player = "CPU";
                 }
                 if(playerX == true) {
-                    System.out.println(player + "'s turn \nEnter slot: ");
+                    System.out.println(player + "'s turn \nEnter slot (or -1 for best predicted slot): ");
                     slot = input.nextInt();
                 } else {
                     if(simulateXWin() == false)
