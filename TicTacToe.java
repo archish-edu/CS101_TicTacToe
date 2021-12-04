@@ -33,7 +33,6 @@ public class TicTacToe {
                         
                         
                         board[slot-1] = "X";
-                        System.out.println("Prediction: " + predictBestMove("O"));
                         
                         playerX = false;
                         printCurrentBoard();
@@ -49,6 +48,9 @@ public class TicTacToe {
                     } else {
                         System.out.println("Try again! Slot is already taken.");
                     }
+
+                    System.out.println("Prediction: " + predictBestMove("O"));
+
                     // o turn
                 } else if (playerX == false) {
                     if(board[slot-1].equals(String.valueOf(slot))) {
@@ -151,6 +153,7 @@ public class TicTacToe {
 
     public static int predictBestMove(String player) {
         
+        String temp = "";
 
         ArrayList<Integer> possibleMoves = new ArrayList();
 
@@ -160,19 +163,18 @@ public class TicTacToe {
                 possibleMoves.add(i);
             }
         }
-        
-        System.out.println(possibleMoves.toString());
-        
+                
         int moveCount = 0;
 
         while(moveCount < possibleMoves.size()) {
             int place = possibleMoves.get((int) Math.random() * possibleMoves.size());
+            temp = board[place];
             board[place] = player;
             if(winCheck() == true) {
-                board[place] = String.valueOf(place);
+                board[place] = temp;
                 return place;
             } 
-            board[place] = String.valueOf(place);
+            board[place] = temp;
 
             moveCount += 1;
         }
