@@ -14,6 +14,7 @@ public class TicTacToe {
     static boolean modeSet = false;
     static int mode;
     // board is a 1d array initialized with numbers 1-9
+
     public static void main(String[] args){
         while(modeSet == false) {
             System.out.println("Welcome to Tic Tac Toe! Enter 1 for 2 players, 2 for playing against CPU, or 0 to quit: ");
@@ -40,6 +41,7 @@ public class TicTacToe {
     }
 
     public static void mode1(){
+        printCurrentBoard();
         while(win == false) {
             try{
                 if(playerX == true){
@@ -47,7 +49,7 @@ public class TicTacToe {
                 } else {
                     player = "Player 2";
                 }
-                printCurrentBoard();
+                
                 System.out.println(player + "'s turn \nEnter slot: ");
                 slot = input.nextInt();
 
@@ -57,8 +59,13 @@ public class TicTacToe {
                 }
 
                 if(slot == 0) {
-                    System.out.println("Quitting!");
-                    break;
+                    if(playerX = false) {
+                        System.out.println("Player 2 forfeits! Player 1 wins!");
+                        break;
+                    } else if(playerX = true) {
+                        System.out.println("Player 1 forfeits! Player 2 wins!");
+                        break;
+                    }
                 }
 
                 // x turn
@@ -125,6 +132,7 @@ public class TicTacToe {
     }
 
     public static void mode2(){
+        printCurrentBoard();
         while(win == false) {
             try{
                 if(playerX == true){
@@ -132,7 +140,6 @@ public class TicTacToe {
                 } else {
                     player = "CPU";
                 }
-                printCurrentBoard();
                 if(playerX == true) {
                     System.out.println(player + "'s turn \nEnter slot: ");
                     slot = input.nextInt();
@@ -145,7 +152,7 @@ public class TicTacToe {
                 }
 
                 if(slot == 0) {
-                    System.out.println("Quitting!");
+                    System.out.println("Player 1 forfeits! CPU Wins!");
                     break;
                 }
 
