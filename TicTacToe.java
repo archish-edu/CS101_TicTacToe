@@ -12,7 +12,7 @@ public class TicTacToe {
         boolean win = false;
         int numTurns = 0;
 
-        printCurrentBoard(board);
+        printCurrentBoard();
 
         while(win == false) {
             try{
@@ -31,34 +31,34 @@ public class TicTacToe {
                         numTurns += 1;
                         board[slot-1] = "X";
                         playerX = false;
-                        printCurrentBoard(board);
-                        if(potentialDiagonalWin(board) == true || potentialHorizontalWin(board) == true || potentialVerticalWin(board) == true) {
+                        printCurrentBoard();
+                        if(winCheck()) {
                             System.out.println("X wins!"); 
                             break; 
-                        } else if(potentialDraw(board) == true) {
+                        } else if(draw() == true) {
                             System.out.println("Draw! No more possible moves");
                             break;
                         }
-                        
+
                         // call win checker here!
                     } else {
                         System.out.println("Try again! Slot is already taken.");
                     }
-                // o turn
+                    // o turn
                 } else if (playerX == false) {
                     if(board[slot-1].equals(String.valueOf(slot))) {
                         numTurns += 1;
                         board[slot-1] = "O";
                         playerX = true;
-                        printCurrentBoard(board);
-                        if(potentialDiagonalWin(board) == true || potentialHorizontalWin(board) == true || potentialVerticalWin(board) == true) {
+                        printCurrentBoard();
+                        if(winCheck()) {
                             System.out.println("O wins!"); 
                             break; 
-                        } else if(potentialDraw(board) == true) {
+                        } else if(draw() == true) {
                             System.out.println("Draw! No more possible moves");
                             break;
                         }
-                        
+
                     } else {
                         System.out.println("Try again! Slot is already taken.");
                     }
@@ -69,19 +69,15 @@ public class TicTacToe {
                 break;
             }
 
-            
         }
 
-
-
-    
-    //public static boolean potentialHorizontalWin()
-    //public static boolean potentialDiagonalWin()
-        
-        
-
     }
-    public static boolean potentialVerticalWin(String[] board) {
+
+    public static boolean winCheck(){
+        return (diagonalWin()|| horizontalWin()|| verticalWin());
+    }
+
+    public static boolean verticalWin() {
         // checks for vertical win
         String[] winArray = new String[3];
         winArray[0] = board[0]+board[3]+board[6];
@@ -91,11 +87,11 @@ public class TicTacToe {
             if(check.equals("XXX") || check.equals("OOO")){
                 return true;
             }
-        
+
         return false;
     }
 
-    public static boolean potentialHorizontalWin(String[] board) {
+    public static boolean horizontalWin() {
         // checks for horizontal win
         String[] winArray = new String[3];
         winArray[0] = board[0]+board[1]+board[2];
@@ -105,10 +101,11 @@ public class TicTacToe {
             if(check.equals("XXX") || check.equals("OOO")){
                 return true;
             }
-        
+
         return false;
     }
-    public static boolean potentialDiagonalWin(String[] board) {
+
+    public static boolean diagonalWin() {
         // checks for horizontal win
         String[] winArray = new String[2];
         winArray[0] = board[0]+board[4]+board[8];
@@ -117,11 +114,11 @@ public class TicTacToe {
             if(check.equals("XXX") || check.equals("OOO")){
                 return true;
             }
-        
+
         return false;
     }
-    
-    public static boolean potentialDraw(String[] board) {
+
+    public static boolean draw() {
         int totalPlacesTaken = 0;
         for(String place : board) {
             if(place.equals("X") || place.equals("O")){
@@ -130,11 +127,11 @@ public class TicTacToe {
         }
         if(totalPlacesTaken == 9)
             return true;
-        
+
         return false;
     }
 
-    public static void printCurrentBoard(String[] board){
+    public static void printCurrentBoard(){
         System.out.println();
         System.out.println(" "+board[0]+" "+"|" + " "+board[1]+" "+"|" + " "+board[2]+" ");
         System.out.println("---+---+---");
@@ -144,38 +141,5 @@ public class TicTacToe {
         System.out.println();
 
     }
-    
-    
-
-
 }
-
-class cpu {
-    /*int predictBestMove(String[] board){
-        int place = 0; // will return from 1-9 if valid move available
-
-        if ()//2 in a row already, 
-        {
-            //place = 3rd spot
-        }
-        else if () //1 placed already, 
-        {
-            //place = 2nd spot
-        }
-        
-        // else place in first available random spot 
-        else {
-            int randPlace = (int) (Math.random() * 9.0);
-            return randPlace;
-        }
-        
-        return place;
-
-
-    } */
-
-}
-
-
-
 
