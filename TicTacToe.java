@@ -133,9 +133,12 @@ public class TicTacToe {
                     player = "cpu";
                 }
                 printCurrentBoard();
-                System.out.println(player + "'s turn \nEnter slot: ");
-                slot = input.nextInt();
-
+                if(playerX == true) {
+                    System.out.println(player + "'s turn \nEnter slot: ");
+                    slot = input.nextInt();
+                } else {
+                    slot = predictBestMove("O");
+                }
                 if(slot > 9 || slot < -1) {
                     System.out.println("Try again! Please enter a number between 1 and 9!");
                     continue;
@@ -175,28 +178,27 @@ public class TicTacToe {
 
                     // o turn
                 } else if (playerX == false) {
-                    slot = predictBestMove("O");
-                    System.out.println("slot: " +slot);
-                }
-                if(board[slot-1].equals(String.valueOf(slot))) {
-                    numTurns += 1;
+                    System.out.println("slot: " + slot);
+                    
+                    if(board[slot-1].equals(String.valueOf(slot))) {
+                        numTurns += 1;
 
-                    board[slot-1] = "O";
+                        board[slot-1] = "O";
 
-                    playerX = true;
-                    printCurrentBoard();
-                    if(winCheck()) {
-                        System.out.println(player + " wins!"); 
-                        break; 
-                    } else if(draw() == true) {
-                        System.out.println("Draw! No more possible moves");
-                        break;
+                        playerX = true;
+                        printCurrentBoard();
+                        if(winCheck()) {
+                            System.out.println(player + " wins!"); 
+                            break; 
+                        } else if(draw() == true) {
+                            System.out.println("Draw! No more possible moves");
+                            break;
+                        }
+
+                    } else {
+                        System.out.println("Try again! Slot is already taken.");
                     }
-
-                } else {
-                    System.out.println("Try again! Slot is already taken.");
                 }
-
 
             } 
             catch (InputMismatchException e) {
