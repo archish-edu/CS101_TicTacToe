@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -29,7 +30,11 @@ public class TicTacToe {
 
                     if(board[slot-1].equals(String.valueOf(slot))) {
                         numTurns += 1;
+                        
+                        
                         board[slot-1] = "X";
+                        System.out.println("Prediction: " + predictBestMove("O"));
+                        
                         playerX = false;
                         printCurrentBoard();
                         if(winCheck()) {
@@ -48,7 +53,9 @@ public class TicTacToe {
                 } else if (playerX == false) {
                     if(board[slot-1].equals(String.valueOf(slot))) {
                         numTurns += 1;
+                        
                         board[slot-1] = "O";
+                        System.out.println("Prediction: " + predictBestMove("O"));
                         playerX = true;
                         printCurrentBoard();
                         if(winCheck()) {
@@ -141,5 +148,37 @@ public class TicTacToe {
         System.out.println();
 
     }
+
+    public static int predictBestMove(String player) {
+        
+
+        ArrayList<Integer> possibleMoves = new ArrayList();
+
+        
+        for(int i = 1; i < board.length+1; i++) {
+            if( !board[i-1].equals("X") && !board[i-1].equals("O")) {
+                possibleMoves.add(i);
+            }
+        }
+        
+        System.out.println(possibleMoves.toString());
+        
+        int moveCount = 0;
+
+        while(moveCount < possibleMoves.size()) {
+            int place = possibleMoves.get((int) Math.random() * possibleMoves.size());
+            board[place] = player;
+            if(winCheck() == true) {
+                board[place] = String.valueOf(place);
+                return place;
+            } 
+            board[place] = String.valueOf(place);
+
+            moveCount += 1;
+        }
+
+        return possibleMoves.get((int) Math.random() * possibleMoves.size());
+    } 
+
 }
 
