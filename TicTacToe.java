@@ -4,32 +4,27 @@ import java.util.Scanner;
 
 public class TicTacToe {
     static String[] board = {"1","2","3","4","5","6","7","8","9"};
-    static boolean playerX;
-
+    static Scanner input  = new Scanner(System.in);
+    static boolean playerX = true;
+    static boolean win = false;
+    static int numTurns = 0;
+    static int slot;
+    static String player;
+    static String player2;
+    static boolean modeSet = false;
+    static int mode;
     // board is a 1d array initialized with numbers 1-9
     public static void main(String[] args){
-        Scanner input  = new Scanner(System.in);
-        playerX = true;
-        boolean win = false;
-        int numTurns = 0;
-        int slot;
-        String player;
-        String player2;
-        boolean modeSet = false;
-        int mode;
-
-
-
         while(modeSet == false) {
             System.out.println("Welcome to Tic Tac Toe! Enter 1 for 2 players, 2 for playing against CPU, or 0 to quit: ");
             try {
                 mode = input.nextInt();
                 if(mode == 1) {
-                    mode = 1; 
+                    mode1();
                     modeSet = true;
                 }
                 if(mode == 2) {
-                    mode = 2;
+                    mode2();
                     modeSet = true;
                 }
                 if(mode == 0) {
@@ -41,9 +36,10 @@ public class TicTacToe {
                 slot = input.nextInt();
 
             }
-            
         }
+    }
 
+    public static void mode1(){
         while(win == false) {
             try{
                 if(playerX == true){
@@ -65,8 +61,6 @@ public class TicTacToe {
                     break;
                 }
 
-                
-
                 // x turn
                 if(playerX == true) {
                     if(slot == -1) {
@@ -76,9 +70,9 @@ public class TicTacToe {
 
                     if(board[slot-1].equals(String.valueOf(slot))) {
                         numTurns += 1;
-                        
+
                         board[slot-1] = "X";
-                        
+
                         playerX = false;
                         printCurrentBoard();
                         if(winCheck()) {
@@ -94,8 +88,6 @@ public class TicTacToe {
                         System.out.println("Try again! Slot is already taken.");
                     }
 
-                    
-
                     // o turn
                 } else if (playerX == false) {
                     if(slot == -1) {
@@ -104,9 +96,9 @@ public class TicTacToe {
                     }
                     if(board[slot-1].equals(String.valueOf(slot))) {
                         numTurns += 1;
-                        
+
                         board[slot-1] = "O";
-                        
+
                         playerX = true;
                         printCurrentBoard();
                         if(winCheck()) {
@@ -120,7 +112,7 @@ public class TicTacToe {
                     } else {
                         System.out.println("Try again! Slot is already taken.");
                     }
-                    
+
                 }
 
             } catch (InputMismatchException e) {
@@ -130,7 +122,89 @@ public class TicTacToe {
             }
 
         }
+    }
 
+    public static void mode2(){
+        while(win == false) {
+            try{
+                if(playerX == true){
+                    player = "player 1";
+                } else {
+                    player = "cpu";
+                }
+                printCurrentBoard();
+                System.out.println(player + "'s turn \nEnter slot: ");
+                slot = input.nextInt();
+
+                if(slot > 9 || slot < -1) {
+                    System.out.println("Try again! Please enter a number between 1 and 9!");
+                    continue;
+                }
+
+                if(slot == 0) {
+                    System.out.println("Quitting!");
+                    break;
+                }
+
+                // x turn
+                if(playerX == true) {
+                    if(slot == -1) {
+                        System.out.println("Predicted best move: " + predictBestMove("X"));
+                        continue;
+                    }
+
+                    if(board[slot-1].equals(String.valueOf(slot))) {
+                        numTurns += 1;
+
+                        board[slot-1] = "X";
+
+                        playerX = false;
+                        printCurrentBoard();
+                        if(winCheck()) {
+                            System.out.println(player + " wins!"); 
+                            break; 
+                        } else if(draw() == true) {
+                            System.out.println("Draw! No more possible moves");
+                            break;
+                        }
+
+                        // call win checker here!
+                    } else {
+                        System.out.println("Try again! Slot is already taken.");
+                    }
+
+                    // o turn
+                } else if (playerX == false) {
+                    slot = predictBestMove("O");
+                    System.out.println("slot: " +slot);
+                }
+                if(board[slot-1].equals(String.valueOf(slot))) {
+                    numTurns += 1;
+
+                    board[slot-1] = "O";
+
+                    playerX = true;
+                    printCurrentBoard();
+                    if(winCheck()) {
+                        System.out.println(player + " wins!"); 
+                        break; 
+                    } else if(draw() == true) {
+                        System.out.println("Draw! No more possible moves");
+                        break;
+                    }
+
+                } else {
+                    System.out.println("Try again! Slot is already taken.");
+                }
+
+
+            } 
+            catch (InputMismatchException e) {
+                System.out.println("Error! Please enter a valid input!");
+                break;
+            }
+
+        }
     }
 
     public static boolean winCheck(){
@@ -203,18 +277,17 @@ public class TicTacToe {
     }
 
     public static int predictBestMove(String player) {
-        
+
         String temp = "";
 
         ArrayList<Integer> possibleMoves = new ArrayList();
 
-        
         for(int i = 1; i < board.length+1; i++) {
             if( !board[i-1].equals("X") && !board[i-1].equals("O")) {
                 possibleMoves.add(i);
             }
         }
-                
+
         int moveCount = 0;
 
         while(moveCount < possibleMoves.size()) {
@@ -234,4 +307,3 @@ public class TicTacToe {
     } 
 
 }
-
