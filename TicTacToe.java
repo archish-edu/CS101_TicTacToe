@@ -214,7 +214,7 @@ public class TicTacToe {
             moveCount += 1;
         }
 
-        return possibleMoves.get((int) Math.random() * possibleMoves.size());
+        return possibleMoves.get((int) (Math.random() * possibleMoves.size()) );
     } 
 
 }
