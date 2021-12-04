@@ -12,17 +12,51 @@ public class TicTacToe {
         playerX = true;
         boolean win = false;
         int numTurns = 0;
+        int slot;
+        String player2;
+        boolean modeSet = false;
+        int mode;
 
-        printCurrentBoard();
+
+
+        while(modeSet == false) {
+            System.out.println("Welcome to Tic Tac Toe! Enter 1 for 2 players, 2 for playing against CPU, or 0 to quit: ");
+            try {
+                mode = input.nextInt();
+                if(mode == 1) {
+                    mode = 1; 
+                    modeSet = true;
+                }
+                if(mode == 2) {
+                    mode = 2;
+                    modeSet = true;
+                }
+                if(mode == 0) {
+                    System.out.println("Goodbye!");
+                    System.exit(0);
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Enter a valid input!");
+                slot = input.nextInt();
+
+            }
+            
+        }
 
         while(win == false) {
             try{
+                printCurrentBoard();
                 System.out.println("Enter slot: ");
-                int slot = input.nextInt();
+                slot = input.nextInt();
 
-                if(slot > 9 || slot < 1) {
+                if(slot > 9 || slot < 0) {
                     System.out.println("Try again! Please enter a number between 1 and 9!");
                     continue;
+                }
+
+                if(slot == 0) {
+                    System.out.println("Quitting!");
+                    break;
                 }
 
                 // x turn
@@ -30,7 +64,6 @@ public class TicTacToe {
 
                     if(board[slot-1].equals(String.valueOf(slot))) {
                         numTurns += 1;
-                        
                         
                         board[slot-1] = "X";
                         
@@ -49,7 +82,7 @@ public class TicTacToe {
                         System.out.println("Try again! Slot is already taken.");
                     }
 
-                    System.out.println("Prediction: " + predictBestMove("O"));
+                    System.out.println("Prediction for O: " + predictBestMove("O"));
 
                     // o turn
                 } else if (playerX == false) {
@@ -57,7 +90,7 @@ public class TicTacToe {
                         numTurns += 1;
                         
                         board[slot-1] = "O";
-                        System.out.println("Prediction: " + predictBestMove("O"));
+                        
                         playerX = true;
                         printCurrentBoard();
                         if(winCheck()) {
@@ -71,9 +104,11 @@ public class TicTacToe {
                     } else {
                         System.out.println("Try again! Slot is already taken.");
                     }
+                    System.out.println("Prediction for X: " + predictBestMove("X"));
                 }
 
             } catch (InputMismatchException e) {
+
                 System.out.println("Error! Please enter a valid input!");
                 break;
             }
@@ -167,14 +202,18 @@ public class TicTacToe {
         int moveCount = 0;
 
         while(moveCount < possibleMoves.size()) {
-            int place = possibleMoves.get((int) Math.random() * possibleMoves.size());
-            temp = board[place];
-            board[place] = player;
+            int place = possibleMoves.get(moveCount);
+            temp = board[place-1];
+            board[place-1] = player;
+            System.out.println("TEST BOARD: ");
+            printCurrentBoard();
             if(winCheck() == true) {
-                board[place] = temp;
+                System.out.println("TEMP BOARD WIN CHECK");
+                printCurrentBoard();
+                board[place-1] = temp;
                 return place;
             } 
-            board[place] = temp;
+            board[place-1] = temp;
 
             moveCount += 1;
         }
