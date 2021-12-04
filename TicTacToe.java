@@ -43,9 +43,9 @@ public class TicTacToe {
         while(win == false) {
             try{
                 if(playerX == true){
-                    player = "player 1";
+                    player = "Player 1";
                 } else {
-                    player = "player 2";
+                    player = "Player 2";
                 }
                 printCurrentBoard();
                 System.out.println(player + "'s turn \nEnter slot: ");
@@ -128,9 +128,9 @@ public class TicTacToe {
         while(win == false) {
             try{
                 if(playerX == true){
-                    player = "player 1";
+                    player = "Player 1";
                 } else {
-                    player = "cpu";
+                    player = "CPU";
                 }
                 printCurrentBoard();
                 if(playerX == true) {
@@ -178,7 +178,8 @@ public class TicTacToe {
 
                     // o turn
                 } else if (playerX == false) {
-                    System.out.println("slot: " + slot);
+                    
+                    System.out.println("CPU picks slot: " + slot);
                     
                     if(board[slot-1].equals(String.valueOf(slot))) {
                         numTurns += 1;
