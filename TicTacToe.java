@@ -41,7 +41,7 @@ public class TicTacToe {
                 input.next();
 
             }
-        }while(modeSet == false);
+        } while(modeSet == false);
     }
  
 
@@ -354,7 +354,7 @@ public class TicTacToe {
 
         String temp = "";
 
-        ArrayList<Integer> possibleMoves = new ArrayList();
+        ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
 
         for(int i = 1; i < board.length+1; i++) {
             if( !board[i-1].equals("X") && !board[i-1].equals("O")) {
