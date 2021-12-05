@@ -15,32 +15,35 @@ public class TicTacToe {
     static int mode;
     // board is a 1d array initialized with numbers 1-9
 
+    
     public static void main(String[] args){
-        while(modeSet == false) {
-            System.out.println("Welcome to Tic Tac Toe! Enter 1 for 2 players, 2 for playing against CPU, or 0 to quit: ");
+        System.out.println("Welcome to Tic Tac Toe! Enter 1 for 2 players, 2 for playing against CPU, or 0 to quit: ");
+        do{
             try {
                 mode = input.nextInt();
                 if(mode == 1) {
                     mode1();
                     modeSet = true;
                 }
-                if(mode == 2) {
+                else if(mode == 2) {
                     mode2();
                     modeSet = true;
                 }
-                if(mode == 0) {
+                else if(mode == 0) {
                     System.out.println("Goodbye!");
                     System.exit(0);
                 }
+                else{
+                    throw new InputMismatchException();
+                }
             } catch (InputMismatchException e) {
                 System.out.println("Enter a valid input!");
-                mode = input.nextInt();
-                
-
+                input.next();
 
             }
-        }
+        }while(modeSet == false);
     }
+ 
 
     public static void mode1(){
         int strikeCounterP1 = 0;
