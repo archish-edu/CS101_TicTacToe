@@ -38,10 +38,10 @@ public class TicTacToe {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Enter a valid input!");
-                input.next();
+                input.nextLine();
 
             }
-        } while(modeSet == false);
+        }while(modeSet == false);
     }
  
 
@@ -354,7 +354,7 @@ public class TicTacToe {
 
         String temp = "";
 
-        ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
+        ArrayList<Integer> possibleMoves = new ArrayList();
 
         for(int i = 1; i < board.length+1; i++) {
             if( !board[i-1].equals("X") && !board[i-1].equals("O")) {
