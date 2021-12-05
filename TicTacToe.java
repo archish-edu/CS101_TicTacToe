@@ -171,7 +171,7 @@ public class TicTacToe {
             } catch (InputMismatchException e) {
 
                 System.out.println("Error! Please enter a valid input!");
-                break;
+                input.nextLine();
             }
 
         }
@@ -275,7 +275,7 @@ public class TicTacToe {
             } 
             catch (InputMismatchException e) {
                 System.out.println("Error! Please enter a valid input!");
-                break;
+                input.nextLine();
             }
 
         }
