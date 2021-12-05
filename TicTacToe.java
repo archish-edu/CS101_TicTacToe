@@ -169,7 +169,22 @@ public class TicTacToe {
                 }
 
             } catch (InputMismatchException e) {
+                if(playerX == true) {
+                    consecutiveStrikeP1 += 1;
+                    strikeCounterP1 += 1;
+                    if(consecutiveStrikeP1 > 2 || strikeCounterP1 > 4) {
+                        System.out.println("Player 2 wins by forfeit!");
+                        break;
+                    }
 
+                } else {
+                    consecutiveStrikeP2 += 1;
+                    strikeCounterP2 += 1;
+                    if(consecutiveStrikeP2 > 2 || strikeCounterP2 > 4) {
+                        System.out.println("Player 2 wins by forfeit!");
+                        break;
+                    }
+                }
                 System.out.println("Error! Please enter a valid input!");
                 input.nextLine();
             }
@@ -274,6 +289,12 @@ public class TicTacToe {
 
             } 
             catch (InputMismatchException e) {
+                consecutiveStrikeP1 += 1;
+                strikeCounterP1 += 1;
+                if(strikeCounterP1 > 4 || consecutiveStrikeP1 > 2) {
+                    System.out.println("Player 1 forfeits by too many incorrect entries!");
+                    break;
+                }
                 System.out.println("Error! Please enter a valid input!");
                 input.nextLine();
             }
