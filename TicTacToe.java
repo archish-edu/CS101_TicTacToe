@@ -377,7 +377,7 @@ public class TicTacToe {
         // predicts best possible move by testing available slots and calling winCheck() for each possible outcome. if none result in win, return random number
         String temp = "";
 
-        ArrayList<Integer> possibleMoves = new ArrayList();
+        ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
 
         for(int i = 1; i < board.length+1; i++) {
             if( !board[i-1].equals("X") && !board[i-1].equals("O")) {
@@ -405,7 +405,7 @@ public class TicTacToe {
     public static boolean simulateXWin() {
         // test if cpu can attempt to block player 1
         // simulates best possible player move and returns true if win is possible
-        
+
         String[] boardClone = board.clone();
         String[] temp = board;
         board = boardClone;
