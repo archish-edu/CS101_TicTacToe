@@ -173,7 +173,7 @@ public class TicTacToe {
                     consecutiveStrikeP1 += 1;
                     strikeCounterP1 += 1;
                     if(consecutiveStrikeP1 > 2 || strikeCounterP1 > 4) {
-                        System.out.println("Player 2 wins by forfeit!");
+                        System.out.println("Player 1 forfeits by too many incorrect entries, Player 2 wins!");
                         break;
                     }
 
@@ -181,7 +181,7 @@ public class TicTacToe {
                     consecutiveStrikeP2 += 1;
                     strikeCounterP2 += 1;
                     if(consecutiveStrikeP2 > 2 || strikeCounterP2 > 4) {
-                        System.out.println("Player 2 wins by forfeit!");
+                        System.out.println("Player 2 forfeits by too many incorrect entries, Player 1 wins!");
                         break;
                     }
                 }
