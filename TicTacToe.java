@@ -78,10 +78,10 @@ public class TicTacToe {
                     }
 
                     if(strikeCounterP1 > 4 || consecutiveStrikeP1 > 2) {
-                        System.out.println("Player 1 forfeits by too many incorrect entries!");
+                        System.out.println("Player 1 forfeits by too many incorrect entries! Player 2 wins!");
                         break;
                     } else if(strikeCounterP2 > 4 || consecutiveStrikeP2 > 2) {
-                        System.out.println("Player 2 forfeits by too many incorrect entries");
+                        System.out.println("Player 2 forfeits by too many incorrect entries! Player 1 wins!");
                         break;
                     }
 
@@ -128,7 +128,7 @@ public class TicTacToe {
                         consecutiveStrikeP1 += 1;
                         strikeCounterP1 += 1;
                         if(strikeCounterP1 > 4 || consecutiveStrikeP1 > 2) {
-                            System.out.println("Player 1 forfeits by too many incorrect entries!");
+                            System.out.println("Player 1 forfeits by too many incorrect entries! Player 2 wins!");
                             break;
                         }
                     }
@@ -161,7 +161,7 @@ public class TicTacToe {
                         consecutiveStrikeP2 += 1;
                         strikeCounterP2 += 1;
                         if(strikeCounterP2 > 4 || consecutiveStrikeP2 > 2) {
-                            System.out.println("Player 2 forfeits by too many incorrect entries");
+                            System.out.println("Player 2 forfeits by too many incorrect entries! Player 1 wins!");
                             break;
                         }
                     }
@@ -281,7 +281,7 @@ public class TicTacToe {
                         consecutiveStrikeP1 += 1;
                         strikeCounterP1 += 1;
                         if(strikeCounterP1 > 4 || consecutiveStrikeP1 > 2) {
-                            System.out.println("Player 1 forfeits by too many incorrect entries!");
+                            System.out.println("Player 1 forfeits by too many incorrect entries! CPU Wins!");
                             break;
                         }
                     }
@@ -292,7 +292,7 @@ public class TicTacToe {
                 consecutiveStrikeP1 += 1;
                 strikeCounterP1 += 1;
                 if(strikeCounterP1 > 4 || consecutiveStrikeP1 > 2) {
-                    System.out.println("Player 1 forfeits by too many incorrect entries!");
+                    System.out.println("Player 1 forfeits by too many incorrect entries! CPU Wins!");
                     break;
                 }
                 System.out.println("Error! Please enter a valid input!");
@@ -307,7 +307,7 @@ public class TicTacToe {
     }
 
     public static boolean verticalWin() {
-        // checks for vertical win
+        // checks for vertical win by concatenating and comparing strings
         String[] winArray = new String[3];
         winArray[0] = board[0]+board[3]+board[6];
         winArray[1] = board[1]+board[4]+board[7];
@@ -321,7 +321,7 @@ public class TicTacToe {
     }
 
     public static boolean horizontalWin() {
-        // checks for horizontal win
+        // checks for vertical win by concatenating and comparing strings
         String[] winArray = new String[3];
         winArray[0] = board[0]+board[1]+board[2];
         winArray[1] = board[3]+board[4]+board[5];
@@ -335,7 +335,7 @@ public class TicTacToe {
     }
 
     public static boolean diagonalWin() {
-        // checks for horizontal win
+         // checks for vertical win by concatenating and comparing strings
         String[] winArray = new String[2];
         winArray[0] = board[0]+board[4]+board[8];
         winArray[1] = board[2]+board[4]+board[6];
@@ -348,6 +348,7 @@ public class TicTacToe {
     }
 
     public static boolean draw() {
+        // checks for draw, returns true if board is full, false if moves still available by counting places
         int totalPlacesTaken = 0;
         for(String place : board) {
             if(place.equals("X") || place.equals("O")){
@@ -361,6 +362,7 @@ public class TicTacToe {
     }
 
     public static void printCurrentBoard(){
+        // prints board
         System.out.println();
         System.out.println(" "+board[0]+" "+"|" + " "+board[1]+" "+"|" + " "+board[2]+" ");
         System.out.println("---+---+---");
@@ -372,7 +374,7 @@ public class TicTacToe {
     }
 
     public static int predictBestMove(String player) {
-
+        // predicts best possible move by testing available slots and calling winCheck() for each possible outcome. if none result in win, return random number
         String temp = "";
 
         ArrayList<Integer> possibleMoves = new ArrayList();
@@ -401,6 +403,9 @@ public class TicTacToe {
         return possibleMoves.get((int) (Math.random() * possibleMoves.size()) );
     }
     public static boolean simulateXWin() {
+        // test if cpu can attempt to block player 1
+        // simulates best possible player move and returns true if win is possible
+        
         String[] boardClone = board.clone();
         String[] temp = board;
         board = boardClone;
