@@ -176,7 +176,6 @@ public class TicTacToe {
                                 slot = predictBestMove("O");
                             cpuAssistP2 += 1;
                             System.out.println("Player 2 Uses CPU Assist! CPU Picks: " + slot);
-                            printCurrentBoard();
 
                         } else {
                             System.out.println("Player 2 has used too many CPU Assists! Try again!");
