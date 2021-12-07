@@ -3,6 +3,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TicTacToe {
+    // data
+    // board is a 1d array initialized with numbers 1-9
     static String[] board = {"1","2","3","4","5","6","7","8","9"};
     static Scanner input  = new Scanner(System.in);
     static boolean playerX = true;
@@ -13,13 +15,12 @@ public class TicTacToe {
     static String player2;
     static boolean modeSet = false;
     static int mode;
-    // board is a 1d array initialized with numbers 1-9
 
-    
     public static void main(String[] args){
         System.out.println("Welcome to Tic Tac Toe! Enter 1 for 2 players, 2 for playing against CPU, or 0 to quit: ");
         do{
             try {
+                // set mode (catches invalid inputs)
                 mode = input.nextInt();
                 if(mode == 1) {
                     mode1();
@@ -33,37 +34,42 @@ public class TicTacToe {
                     System.out.println("Goodbye!");
                     System.exit(0);
                 }
-                else{
+                else{ // if non-int input
                     throw new InputMismatchException();
                 }
-            } catch (InputMismatchException e) {
+            } catch (InputMismatchException e) { // clears input
                 System.out.println("Enter a valid input!");
                 input.nextLine();
 
             }
-        }while(modeSet == false);
+        } while(modeSet == false);
     }
  
-
+    // player vs player
     public static void mode1(){
+        // reset strike counters for both players
         int strikeCounterP1 = 0;
         int strikeCounterP2 = 0;
         int consecutiveStrikeP1 = 0;
         int consecutiveStrikeP2 = 0;
 
+        // print initial board
         printCurrentBoard();
         while(win == false) {
 
             try{
+                // swap players for gui
                 if(playerX == true){
                     player = "Player 1";
                 } else {
                     player = "Player 2";
                 }
-                
+
+                // get slot input
                 System.out.println(player + "'s turn \nEnter slot (or -1 for best predicted move): ");
                 slot = input.nextInt();
 
+                // catch invalid slot input ints, increment strike counters as needed
                 if(slot > 9 || slot < -1) {
                     System.out.println("Try again! Please enter a number between 1 and 9!");
                     
@@ -77,6 +83,7 @@ public class TicTacToe {
                         consecutiveStrikeP2 += 1;
                     }
 
+                    // check if either strike counter limit has been reached and forfeit player as needed
                     if(strikeCounterP1 > 4 || consecutiveStrikeP1 > 2) {
                         System.out.println("Player 1 forfeits by too many incorrect entries! Player 2 wins!");
                         break;
@@ -88,6 +95,7 @@ public class TicTacToe {
                     continue;
                 }
 
+                // auto forfeit if player enters 0
                 if(slot == 0) {
                     if(playerX = false) {
                         System.out.println("Player 2 forfeits! Player 1 wins!");
@@ -98,22 +106,28 @@ public class TicTacToe {
                     }
                 }
 
-                // x turn
-                if(playerX == true) {
+                if(playerX == true) { // player 1's turn
+
+                    // if -1 is pressed, predict best move
                     if(slot == -1) {
                         System.out.println("Predicted best move: " + predictBestMove("X"));
                         continue;
                     }
 
+                    // if valid input, place X and update board
                     if(board[slot-1].equals(String.valueOf(slot))) {
                         numTurns += 1;
 
                         board[slot-1] = "X";
 
+                        // reset consecutive strike counter
                         consecutiveStrikeP1 = 0;
 
+                        // switch players
                         playerX = false;
                         printCurrentBoard();
+
+                        // check if player 1 has win or if draw is reached
                         if(winCheck()) {
                             System.out.println(player + " wins!"); 
                             break; 
@@ -122,32 +136,40 @@ public class TicTacToe {
                             break;
                         }
 
-                        // call win checker here!
-                    } else {
+                    } else { // player enters slot that's already taken
                         System.out.println("Try again! Slot is already taken.");
                         consecutiveStrikeP1 += 1;
                         strikeCounterP1 += 1;
+
+                        // check strike counters
                         if(strikeCounterP1 > 4 || consecutiveStrikeP1 > 2) {
                             System.out.println("Player 1 forfeits by too many incorrect entries! Player 2 wins!");
                             break;
                         }
                     }
 
-                    // o turn
-                } else if (playerX == false) {
+                    
+                } else if (playerX == false) { // player 2's turn
+
+                    // if -1 is pressed, predict best move
                     if(slot == -1) {
                         System.out.println("Predicted best move: " + predictBestMove("O"));
                         continue;
                     }
+
+                    // if valid input, place O and update board
                     if(board[slot-1].equals(String.valueOf(slot))) {
                         numTurns += 1;
                         board[slot-1] = "O";
                         
+                        // reset consecutive strike counter
                         consecutiveStrikeP2 = 0;
                         
+                        // switch players
                         playerX = true;
                         printCurrentBoard();
 
+                        // check if player 2 has win or if draw is reached
                         if(winCheck()) {
                             System.out.println(player + " wins!"); 
                             break; 
@@ -156,10 +178,12 @@ public class TicTacToe {
                             break;
                         }
 
-                    } else {
+                    } else { // player enters slot that's already taken
                         System.out.println("Try again! Slot is already taken.");
                         consecutiveStrikeP2 += 1;
                         strikeCounterP2 += 1;
+
+                        // check strike counters
                         if(strikeCounterP2 > 4 || consecutiveStrikeP2 > 2) {
                             System.out.println("Player 2 forfeits by too many incorrect entries! Player 1 wins!");
                             break;
@@ -168,10 +192,12 @@ public class TicTacToe {
 
                 }
 
-            } catch (InputMismatchException e) {
-                if(playerX == true) {
+            } catch (InputMismatchException e) { // invalid input strike counters
+                if(playerX == true) { // check which player put in the wrong input
                     consecutiveStrikeP1 += 1;
                     strikeCounterP1 += 1;
+
+                    // if P1 exceeds strike limits
                     if(consecutiveStrikeP1 > 2 || strikeCounterP1 > 4) {
                         System.out.println("Player 1 forfeits by too many incorrect entries, Player 2 wins!");
                         break;
@@ -180,11 +206,15 @@ public class TicTacToe {
                 } else {
                     consecutiveStrikeP2 += 1;
                     strikeCounterP2 += 1;
+                    
+                    // if P2 exceeds strike limits
                     if(consecutiveStrikeP2 > 2 || strikeCounterP2 > 4) {
                         System.out.println("Player 2 forfeits by too many incorrect entries, Player 1 wins!");
                         break;
                     }
                 }
+
+                // clear input for given turn
                 System.out.println("Error! Please enter a valid input!");
                 input.nextLine();
             }
@@ -192,12 +222,17 @@ public class TicTacToe {
         }
     }
 
-    public static void mode2(){
+    // player vs CPU
+    public static void mode2() {
+        // reset strike counters
         int strikeCounterP1 = 0;
         int consecutiveStrikeP1 = 0;
+    
         printCurrentBoard();
+
         while(win == false) {
             try{
+                // swap players for gui
                 if(playerX == true){
                     player = "Player 1";
                 } else {
@@ -206,14 +241,14 @@ public class TicTacToe {
                 if(playerX == true) {
                     System.out.println(player + "'s turn \nEnter slot (or -1 for best predicted slot): ");
                     slot = input.nextInt();
-                } else {
+                } else { // if cpu is playing, simulate whether X will win next turn and block that move &/OR find best possible move 
                     if(simulateXWin() == false)
                         slot = predictBestMove("O");
                     else {
                         slot = predictBestMove("X");
                     }
                 }
-                if(slot > 9 || slot < -1) {
+                if(slot > 9 || slot < -1) { // if player 1 enters invalid slot number
                     System.out.println("Try again! Please enter a number between 1 and 9!");
                     if(playerX == true) {
                         strikeCounterP1 += 1;
@@ -222,27 +257,31 @@ public class TicTacToe {
                     continue;
                 }
 
-                if(slot == 0) {
+                if(slot == 0) { // auto forfeit if player enters 0
                     System.out.println("Player 1 forfeits! CPU Wins!");
                     break;
                 }
 
-                // x turn
+                // player turn
                 if(playerX == true) {
-                    if(slot == -1) {
+                    if(slot == -1) { // if -1 is pressed, predict best move
                         System.out.println("Predicted best move: " + predictBestMove("X"));
                         continue;
                     }
 
+                    // if valid input, place X and update board
                     if(board[slot-1].equals(String.valueOf(slot))) {
                         numTurns += 1;
 
                         board[slot-1] = "X";
 
+                        // reset consecutive strike counter
                         consecutiveStrikeP1 = 0;
 
                         playerX = false;
                         printCurrentBoard();
+
+                        // check if win or draw
                         if(winCheck()) {
                             System.out.println(player + " wins!"); 
                             break; 
@@ -251,14 +290,14 @@ public class TicTacToe {
                             break;
                         }
 
-                        // call win checker here!
-                    } else {
+                    } else { // player enters slot that is already taken
                         System.out.println("Try again! Slot is already taken.");
                     }
 
-                    // o turn
-                } else if (playerX == false) {
-                    
+                  
+                } else if (playerX == false) { // cpu turn
+
+                    // display which slot cpu picks
                     System.out.println("CPU picks slot: " + slot);
                     
                     if(board[slot-1].equals(String.valueOf(slot))) {
@@ -276,7 +315,7 @@ public class TicTacToe {
                             break;
                         }
 
-                    } else {
+                    } else { // in case player tries to interfere with cpu (unlikely)
                         System.out.println("Try again! Slot is already taken.");
                         consecutiveStrikeP1 += 1;
                         strikeCounterP1 += 1;
@@ -288,7 +327,7 @@ public class TicTacToe {
                 }
 
             } 
-            catch (InputMismatchException e) {
+            catch (InputMismatchException e) { // if player enters non-int value
                 consecutiveStrikeP1 += 1;
                 strikeCounterP1 += 1;
                 if(strikeCounterP1 > 4 || consecutiveStrikeP1 > 2) {
@@ -303,11 +342,12 @@ public class TicTacToe {
     }
 
     public static boolean winCheck(){
+        // calls all possible win check methods
         return (diagonalWin()|| horizontalWin()|| verticalWin());
     }
 
     public static boolean verticalWin() {
-        // checks for vertical win by concatenating and comparing strings
+        // checks for vertical win by concatenating and comparing slot strings
         String[] winArray = new String[3];
         winArray[0] = board[0]+board[3]+board[6];
         winArray[1] = board[1]+board[4]+board[7];
@@ -321,7 +361,7 @@ public class TicTacToe {
     }
 
     public static boolean horizontalWin() {
-        // checks for vertical win by concatenating and comparing strings
+        // checks for vertical win by concatenating and comparing slot strings
         String[] winArray = new String[3];
         winArray[0] = board[0]+board[1]+board[2];
         winArray[1] = board[3]+board[4]+board[5];
@@ -335,7 +375,7 @@ public class TicTacToe {
     }
 
     public static boolean diagonalWin() {
-         // checks for vertical win by concatenating and comparing strings
+         // checks for vertical win by concatenating and comparing slot strings
         String[] winArray = new String[2];
         winArray[0] = board[0]+board[4]+board[8];
         winArray[1] = board[2]+board[4]+board[6];
@@ -348,7 +388,7 @@ public class TicTacToe {
     }
 
     public static boolean draw() {
-        // checks for draw, returns true if board is full, false if moves still available by counting places
+        // checks for draw, returns true if board is full, false if moves still available (calculated by counting places)
         int totalPlacesTaken = 0;
         for(String place : board) {
             if(place.equals("X") || place.equals("O")){
@@ -362,7 +402,7 @@ public class TicTacToe {
     }
 
     public static void printCurrentBoard(){
-        // prints board
+        // prints current state of board 
         System.out.println();
         System.out.println(" "+board[0]+" "+"|" + " "+board[1]+" "+"|" + " "+board[2]+" ");
         System.out.println("---+---+---");
@@ -404,7 +444,7 @@ public class TicTacToe {
     }
     public static boolean simulateXWin() {
         // test if cpu can attempt to block player 1
-        // simulates best possible player move and returns true if win is possible
+        // simulates best possible player move and returns true if player win is possible (cpu blocks) - player MUST FORK CPU TO WIN
 
         String[] boardClone = board.clone();
         String[] temp = board;
