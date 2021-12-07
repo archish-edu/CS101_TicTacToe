@@ -52,6 +52,8 @@ public class TicTacToe {
         int strikeCounterP2 = 0;
         int consecutiveStrikeP1 = 0;
         int consecutiveStrikeP2 = 0;
+        int cpuAssistP1 = 0;
+        int cpuAssistP2 = 0;
 
         // print initial board
         printCurrentBoard();
@@ -110,8 +112,17 @@ public class TicTacToe {
 
                     // if -1 is pressed, predict best move
                     if(slot == -1) {
-                        System.out.println("Predicted best move: " + predictBestMove("X"));
-                        continue;
+                        if(cpuAssistP1 < 3) {
+                            slot = predictBestMove("X");
+                            cpuAssistP1 += 1;
+                            System.out.println("Player 1 Uses CPU Assist! CPU Picks: " + slot);
+                            printCurrentBoard();
+
+                        } else {
+                            System.out.println("Player 1 has used too many CPU Assists! Try again!");
+                            continue;
+                        }
+                        
                     }
 
                     // if valid input, place X and update board
@@ -153,8 +164,17 @@ public class TicTacToe {
 
                     // if -1 is pressed, predict best move
                     if(slot == -1) {
-                        System.out.println("Predicted best move: " + predictBestMove("O"));
-                        continue;
+                        if(cpuAssistP2 < 3) {
+                            slot = predictBestMove("O");
+                            cpuAssistP2 += 1;
+                            System.out.println("Player 2 Uses CPU Assist! CPU Picks: " + slot);
+                            printCurrentBoard();
+
+                        } else {
+                            System.out.println("Player 2 has used too many CPU Assists! Try again!");
+                            continue;
+                        }
+                        
                     }
 
                     // if valid input, place O and update board
@@ -227,6 +247,7 @@ public class TicTacToe {
         // reset strike counters
         int strikeCounterP1 = 0;
         int consecutiveStrikeP1 = 0;
+        int cpuAssistP1 = 0;
     
         printCurrentBoard();
 
@@ -414,7 +435,7 @@ public class TicTacToe {
     }
 
     public static int predictBestMove(String player) {
-        // predicts best possible move by testing available slots and calling winCheck() for each possible outcome. if none result in win, return random number
+        // predicts best possible move by testing available slots and calling winCheck() for each possible outcome. if none result in win, return first random available number
         String temp = "";
 
         ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
