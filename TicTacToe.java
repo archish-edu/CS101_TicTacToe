@@ -271,7 +271,7 @@ public class TicTacToe {
                 }
 
                 if(playerX == true) {
-                    System.out.println(player + "'s turn \nEnter slot: ");
+                    System.out.println(player + "'s turn \nEnter slot (or 000 for cpu assist): ");
                     String inputVal = input.next();
                     slot = Integer.parseInt(inputVal);
                     if(slot > 9 || slot < -1) { // if player 1 enters invalid slot number
@@ -330,7 +330,7 @@ public class TicTacToe {
     
 
                 } else { // if cpu is playing, simulate whether X will win next turn and block that move &/OR find best possible move 
-                    // no input from cpu
+             
                     System.out.println(player + "'s turn");
                     if(simulateWin("X") == false)
                         slot = predictBestMove("O");
