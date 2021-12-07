@@ -112,7 +112,7 @@ public class TicTacToe {
 
                     // if -1 is pressed, predict best move
                     if(slot == -1) {
-                        if(cpuAssistP1 < 3) {
+                        if(cpuAssistP1 < 2) {
                             slot = predictBestMove("X");
                             cpuAssistP1 += 1;
                             System.out.println("Player 1 Uses CPU Assist! CPU Picks: " + slot);
@@ -164,7 +164,7 @@ public class TicTacToe {
 
                     // if -1 is pressed, predict best move
                     if(slot == -1) {
-                        if(cpuAssistP2 < 3) {
+                        if(cpuAssistP2 < 2) {
                             slot = predictBestMove("O");
                             cpuAssistP2 += 1;
                             System.out.println("Player 2 Uses CPU Assist! CPU Picks: " + slot);
