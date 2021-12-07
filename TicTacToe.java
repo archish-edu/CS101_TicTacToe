@@ -487,8 +487,9 @@ public class TicTacToe {
         return possibleMoves.get((int) (Math.random() * possibleMoves.size()) );
     }
     public static boolean simulateWin(String player) {
-        // test if cpu can attempt to block player 1
-        // simulates best possible player move and returns true if player win is possible (cpu blocks) - player MUST FORK CPU TO WIN
+        // test if current player can attempt to block other player 
+        // simulates best possible opponent move and returns true if opponent win is possible 
+        // if true, predictBestMove for opponent is called to block the winning slot 
 
         String[] boardClone = board.clone();
         String[] temp = board;
