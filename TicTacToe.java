@@ -5,6 +5,7 @@ import java.util.Scanner;
 // Archish Arun - ada8211
 // Chen Chen - cc7234
 // Dr. Nader Nassar - CS101 Quiz 3
+// Extra Credit (CPU Assist) implemented!
 
 public class TicTacToe {
     // data fields
