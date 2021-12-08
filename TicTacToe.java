@@ -261,7 +261,6 @@ public class TicTacToe {
 
         // reset cpu assist count
         int cpuAssistP1 = 0;
-
     
         printCurrentBoard();
 
