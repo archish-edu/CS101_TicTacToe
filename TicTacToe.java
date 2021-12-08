@@ -342,7 +342,6 @@ public class TicTacToe {
                         slot = predictBestMove("X");
                     }
                 
-
                     // display which slot cpu picks
                     System.out.println("CPU picks slot: " + slot);
                     
