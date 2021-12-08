@@ -1,10 +1,14 @@
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+// simple tic tac toe program with text-based interface in java
+// Archish Arun - ada8211
+// Chen Chen - cc7234
+// Dr. Nader Nassar - CS101 Quiz 3
 
 public class TicTacToe {
-    // data
-    // board is a 1d array initialized with numbers 1-9
+    // data fields
+    // board is a 1d String array initialized with numbers 1-9
     static String[] board = {"1","2","3","4","5","6","7","8","9"};
     static Scanner input  = new Scanner(System.in);
     static boolean playerX = true;
@@ -100,8 +104,7 @@ public class TicTacToe {
                 }
 
                 // auto forfeit if player enters 0
-                System.out.println("You Entered: "+inputVal);
-                if(slot == 0 && !(inputVal.equals("000"))) {
+                if(slot == 0 && inputVal.length() == 1) {
                     if(playerX = false) {
                         System.out.println("Player 2 forfeits! Player 1 wins!");
                         break;
@@ -113,7 +116,7 @@ public class TicTacToe {
 
                 if(playerX == true) { // player 1's turn
 
-                    // if -1 is pressed, predict best move
+                    // if 000 is pressed, predict best move
                     if(inputVal.equals("000")) {
                         if(cpuAssistP1 < 2) {
                             if(simulateWin("O") == true)
@@ -167,7 +170,7 @@ public class TicTacToe {
                     
                 } else if (playerX == false) { // player 2's turn
 
-                    // if -1 is pressed, predict best move
+                    // if 000 is pressed, predict best move
                     if(inputVal.equals("000")) {
                         if(cpuAssistP2 < 2) {
                             if(simulateWin("X") == true)
@@ -251,10 +254,12 @@ public class TicTacToe {
 
     // player vs CPU
     public static void mode2() {
+
         // reset strike counters
         int strikeCounterP1 = 0;
         int consecutiveStrikeP1 = 0;
 
+        // reset cpu assist count
         int cpuAssistP1 = 0;
 
     
@@ -389,6 +394,7 @@ public class TicTacToe {
 
     public static boolean verticalWin() {
         // checks for vertical win by concatenating and comparing slot strings
+        // returns true if win, false if not
         String[] winArray = new String[3];
         winArray[0] = board[0]+board[3]+board[6];
         winArray[1] = board[1]+board[4]+board[7];
@@ -403,6 +409,7 @@ public class TicTacToe {
 
     public static boolean horizontalWin() {
         // checks for vertical win by concatenating and comparing slot strings
+        // returns true if win, false if not
         String[] winArray = new String[3];
         winArray[0] = board[0]+board[1]+board[2];
         winArray[1] = board[3]+board[4]+board[5];
@@ -417,6 +424,7 @@ public class TicTacToe {
 
     public static boolean diagonalWin() {
          // checks for vertical win by concatenating and comparing slot strings
+         // returns true if win, false if not
         String[] winArray = new String[2];
         winArray[0] = board[0]+board[4]+board[8];
         winArray[1] = board[2]+board[4]+board[6];
@@ -429,7 +437,8 @@ public class TicTacToe {
     }
 
     public static boolean draw() {
-        // checks for draw, returns true if board is full, false if moves still available (calculated by counting places)
+        // checks for draw, returns true if board is full, false if moves still available 
+        // (calculated by counting places)
         int totalPlacesTaken = 0;
 
         for(String place : board) {
@@ -457,7 +466,10 @@ public class TicTacToe {
     }
 
     public static int predictBestMove(String player) {
-        // predicts best possible move by testing available slots and calling winCheck() for each possible outcome. if none result in win, return first random available number
+        // predicts best possible move by testing available slots and calling winCheck() for each possible outcome
+        // returns best possible slot for given player 
+        // if none result in win, return first random available slot on board
+
         String temp = "";
 
         ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
