@@ -17,7 +17,6 @@ public class TicTacToe {
     static int numTurns = 0;
     static int slot;
     static String player;
-    static String player2;
     static boolean modeSet = false;
     static int mode;
 
@@ -278,7 +277,7 @@ public class TicTacToe {
                     System.out.println(player + "'s turn \nEnter slot (or 000 for cpu assist): ");
                     String inputVal = input.next();
                     slot = Integer.parseInt(inputVal);
-                    
+
                     if(slot > 9 || slot < -1) { // if player 1 enters invalid slot number
                         System.out.println("Try again! Please enter a number between 1 and 9!");
                         if(playerX == true) {
