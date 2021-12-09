@@ -48,7 +48,7 @@ public class TicTacToe {
                 throw new InputMismatchException();
             } catch (RuntimeException e) { // clears input
                 System.out.println("Enter a valid input!");
-                input.nextLine();
+                //input.nextLine();
 
             }
         } while(modeSet == false);
