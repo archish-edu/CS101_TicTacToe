@@ -38,19 +38,19 @@ public class TicTacToe {
                     modeSet = true;
                     continue;
                 }
-                if(mode == 0 && inputVal.length() == 1) {
+                if(mode == 0 && inputVal.length() == 1) { // in case player enters multiple 0s
                     System.out.println("Goodbye!");
                     modeSet = true;
                     System.exit(0);
 
                 }
-    
+                // if mode doesn't get set, assume invalid input
                 throw new InputMismatchException();
-            } catch (RuntimeException e) { // clears input
-                System.out.println("Enter a valid input!");
-                //input.nextLine();
 
+            } catch (RuntimeException e) { // catches and clears invalid input 
+                System.out.println("Enter a valid input!");
             }
+
         } while(modeSet == false);
     }
  
@@ -61,11 +61,15 @@ public class TicTacToe {
         int strikeCounterP2 = 0;
         int consecutiveStrikeP1 = 0;
         int consecutiveStrikeP2 = 0;
+
+        // reset cpuAssist counts
         int cpuAssistP1 = 0;
         int cpuAssistP2 = 0;
 
         // print initial board
         printCurrentBoard();
+
+        // start game
         while(win == false) {
 
             try{
@@ -76,14 +80,16 @@ public class TicTacToe {
                     player = "Player 2";
                 }
 
-                // get slot input
-                System.out.println(player + "'s turn \nEnter slot (or 000 for best predicted move): ");
+                // get slot input of current player
+                System.out.println(player + "'s turn \nEnter slot (or 000 for best predicted move) or 0 to forfeit: ");
                 String inputVal = input.nextLine();
+
+                // attempt to convert slot into int for board modification
                 slot = Integer.parseInt(inputVal);
 
                 // catch invalid slot input ints, increment strike counters as needed
-                if(slot > 9 || slot < -1) {
-                    System.out.println("Try again! Please enter a number between 1 and 9!");
+                if(slot > 9 || slot < 0) {
+                    System.out.println("Try again! Please enter a number between 1 and 9 or 0 to forfeit!");
                     
                     if(playerX == true) {
                         strikeCounterP1 += 1;
@@ -118,11 +124,11 @@ public class TicTacToe {
                     }
                 }
 
-                if(playerX == true) { // player 1's turn
+                if(playerX == true) { // player 1's turn (player X)
 
-                    // if 000 is pressed, predict best move
+                    // if 000 is pressed, call cpuAssist if limit is not reached
                     if(inputVal.equals("000")) {
-                        if(cpuAssistP1 < 2) {
+                        if(cpuAssistP1 < 2) { // either pick winning or block other player's winning move
                             if(simulateWin("O") == true)
                                 slot = predictBestMove("O");
                             else
@@ -159,7 +165,7 @@ public class TicTacToe {
                             break;
                         }
 
-                    } else { // player enters slot that's already taken
+                    } else { // since no other invalid inputs have been thrown, player has entered slot that's already taken
                         System.out.println("Try again! Slot is already taken.");
                         consecutiveStrikeP1 += 1;
                         strikeCounterP1 += 1;
@@ -174,9 +180,9 @@ public class TicTacToe {
                     
                 } else if (playerX == false) { // player 2's turn
 
-                    // if 000 is pressed, predict best move
+                    // if 000 is pressed, call cpuAssist if limit is not reached
                     if(inputVal.equals("000")) {
-                        if(cpuAssistP2 < 2) {
+                        if(cpuAssistP2 < 2) { // // either pick winning or block other player's winning move
                             if(simulateWin("X") == true)
                                 slot = predictBestMove("X");
                             else
@@ -212,7 +218,7 @@ public class TicTacToe {
                             break;
                         }
 
-                    } else { // player enters slot that's already taken
+                    } else { // since no other invalid inputs have been thrown, player has entered slot that's already taken
                         System.out.println("Try again! Slot is already taken.");
                         consecutiveStrikeP2 += 1;
                         strikeCounterP2 += 1;
@@ -227,7 +233,7 @@ public class TicTacToe {
                 }
 
             } catch (RuntimeException e) { // invalid input strike counters
-                if(playerX == true) { // check which player put in the wrong input
+                if(playerX == true) { // check which player put in the wrong input and increments counters
                     consecutiveStrikeP1 += 1;
                     strikeCounterP1 += 1;
 
@@ -248,9 +254,8 @@ public class TicTacToe {
                     }
                 }
 
-                // clear input for given turn
+                // clear input for given turn and continue
                 System.out.println("Error! Please enter a valid input!");
-                //input.next();
             }
 
         }
@@ -280,12 +285,12 @@ public class TicTacToe {
                 }
 
                 if(playerX == true) {
-                    System.out.println(player + "'s turn \nEnter slot (or 000 for cpu assist): ");
+                    System.out.println(player + "'s turn \nEnter slot (or 000 for cpu assist) or 0 to forfeit: ");
                     String inputVal = input.nextLine();
                     slot = Integer.parseInt(inputVal);
 
-                    if(slot > 9 || slot < -1) { // if player 1 enters invalid slot number
-                        System.out.println("Try again! Please enter a number between 1 and 9!");
+                    if(slot > 9 || slot < 0) { // if player 1 enters invalid slot number
+                        System.out.println("Try again! Please enter a number between 1 and 9 or 0 to forfeit!");
                         strikeCounterP1 += 1;
                         consecutiveStrikeP1 += 1;
                         
@@ -301,7 +306,7 @@ public class TicTacToe {
                         break;
                     }
                     
-                    if(inputVal.equals("000")) { // if -1 is pressed, predict best move
+                    if(inputVal.equals("000")) { // if 000 is pressed, trigger cpuAssist if limit not reached
                         if(cpuAssistP1 < 2) {
                             if(simulateWin("O") == true)
                                 slot = predictBestMove("O");
@@ -389,15 +394,17 @@ public class TicTacToe {
                 }
 
             
-            catch (RuntimeException e) { // if player enters non-int value
+            catch (RuntimeException e) { 
+                // if player enters non-int value, increase both strikes and check if strike limit is reached (cli will throw runtime exception)
                 consecutiveStrikeP1 += 1;
                 strikeCounterP1 += 1;
                 if(strikeCounterP1 > 4 || consecutiveStrikeP1 > 2) {
                     System.out.println("Player 1 forfeits by too many incorrect entries! CPU Wins!");
                     break;
                 }
+                // if strike limit not reached, continue and ask for new input
                 System.out.println("Error! Please enter a valid input!");
-                //input.nextLine();
+
             }
 
         }
