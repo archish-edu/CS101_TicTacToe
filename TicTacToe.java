@@ -12,7 +12,7 @@ public class TicTacToe {
     // board is a 1d String array initialized with numbers 1-9
     static String[] board = {"1","2","3","4","5","6","7","8","9"};
     static Scanner input  = new Scanner(System.in);
-    static boolean playerX = true;
+    static boolean playerX = true; //switch between true and false to determine if it is player 1 or player 2's turn
     static boolean win = false;
     static int numTurns = 0;
     static int slot;
