@@ -25,7 +25,7 @@ public class TicTacToe {
         do{
             try {
                 // set mode (catches invalid inputs)
-                String inputVal = input.next();
+                String inputVal = input.nextLine();
                 mode = Integer.parseInt(inputVal);
                 
                 if(mode == 1) {
@@ -78,7 +78,7 @@ public class TicTacToe {
 
                 // get slot input
                 System.out.println(player + "'s turn \nEnter slot (or 000 for best predicted move): ");
-                String inputVal = input.next();
+                String inputVal = input.nextLine();
                 slot = Integer.parseInt(inputVal);
 
                 // catch invalid slot input ints, increment strike counters as needed
@@ -281,7 +281,7 @@ public class TicTacToe {
 
                 if(playerX == true) {
                     System.out.println(player + "'s turn \nEnter slot (or 000 for cpu assist): ");
-                    String inputVal = input.next();
+                    String inputVal = input.nextLine();
                     slot = Integer.parseInt(inputVal);
 
                     if(slot > 9 || slot < -1) { // if player 1 enters invalid slot number
