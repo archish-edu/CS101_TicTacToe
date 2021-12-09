@@ -250,7 +250,7 @@ public class TicTacToe {
 
                 // clear input for given turn
                 System.out.println("Error! Please enter a valid input!");
-                input.nextLine();
+                //input.next();
             }
 
         }
@@ -397,7 +397,7 @@ public class TicTacToe {
                     break;
                 }
                 System.out.println("Error! Please enter a valid input!");
-                input.nextLine();
+                //input.nextLine();
             }
 
         }
