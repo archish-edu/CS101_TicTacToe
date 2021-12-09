@@ -27,21 +27,25 @@ public class TicTacToe {
                 // set mode (catches invalid inputs)
                 String inputVal = input.next();
                 mode = Integer.parseInt(inputVal);
+                
                 if(mode == 1) {
                     mode1();
                     modeSet = true;
+                    continue;
                 }
-                else if(mode == 2) {
+                if(mode == 2) {
                     mode2();
                     modeSet = true;
+                    continue;
                 }
-                else if(mode == 0) {
+                if(mode == 0 && inputVal.length() == 1) {
                     System.out.println("Goodbye!");
+                    modeSet = true;
                     System.exit(0);
+
                 }
-                else{ // if invalid input
-                    throw new InputMismatchException();
-                }
+    
+                throw new InputMismatchException();
             } catch (RuntimeException e) { // clears input
                 System.out.println("Enter a valid input!");
                 input.nextLine();
@@ -258,10 +262,12 @@ public class TicTacToe {
         // reset strike counters
         int strikeCounterP1 = 0;
         int consecutiveStrikeP1 = 0;
+        
 
         // reset cpu assist count
         int cpuAssistP1 = 0;
     
+
         printCurrentBoard();
 
         while(win == false) {
@@ -291,6 +297,7 @@ public class TicTacToe {
                         System.out.println("Player 1 forfeits! CPU Wins!");
                         break;
                     }
+                    
                     if(inputVal.equals("000")) { // if -1 is pressed, predict best move
                         if(cpuAssistP1 < 2) {
                             if(simulateWin("O") == true)
@@ -372,7 +379,7 @@ public class TicTacToe {
                 }
 
             } 
-            catch (InputMismatchException e) { // if player enters non-int value
+            catch (RuntimeException e) { // if player enters non-int value
                 consecutiveStrikeP1 += 1;
                 strikeCounterP1 += 1;
                 if(strikeCounterP1 > 4 || consecutiveStrikeP1 > 2) {
