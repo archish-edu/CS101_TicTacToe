@@ -286,9 +286,12 @@ public class TicTacToe {
 
                     if(slot > 9 || slot < -1) { // if player 1 enters invalid slot number
                         System.out.println("Try again! Please enter a number between 1 and 9!");
-                        if(playerX == true) {
-                            strikeCounterP1 += 1;
-                            consecutiveStrikeP1 += 1;
+                        strikeCounterP1 += 1;
+                        consecutiveStrikeP1 += 1;
+                        
+                        if(strikeCounterP1 > 4 || consecutiveStrikeP1 > 2) {
+                            System.out.println("Player 1 forfeits by too many incorrect entries! CPU wins!");
+                            break;
                         }
                         continue;
                     }
@@ -336,6 +339,12 @@ public class TicTacToe {
 
                     } else { // player enters slot that is already taken
                         System.out.println("Try again! Slot is already taken.");
+                        strikeCounterP1 += 1;
+                        consecutiveStrikeP1 += 1;
+                        if(strikeCounterP1 > 4 || consecutiveStrikeP1 > 2) {
+                            System.out.println("Player 1 forfeits by too many incorrect entries! CPU wins!");
+                            break;
+                        }
                     }
 
     
@@ -375,10 +384,11 @@ public class TicTacToe {
                             System.out.println("Player 1 forfeits by too many incorrect entries! CPU Wins!");
                             break;
                         }
+                        }
                     }
                 }
 
-            } 
+            
             catch (RuntimeException e) { // if player enters non-int value
                 consecutiveStrikeP1 += 1;
                 strikeCounterP1 += 1;
