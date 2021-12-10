@@ -234,6 +234,7 @@ public class TicTacToe {
 
             } catch (RuntimeException e) { // invalid input strike counters
                 if(playerX == true) { // check which player put in the wrong input and increments counters
+                    // add strikes
                     consecutiveStrikeP1 += 1;
                     strikeCounterP1 += 1;
 
@@ -244,10 +245,11 @@ public class TicTacToe {
                     }
 
                 } else {
+                    // add strikes to p2
                     consecutiveStrikeP2 += 1;
                     strikeCounterP2 += 1;
                     
-                    // if P2 exceeds strike limits
+                    // check if P2 exceeds strike limits
                     if(consecutiveStrikeP2 > 2 || strikeCounterP2 > 4) {
                         System.out.println("Player 2 forfeits by too many incorrect entries, Player 1 wins!");
                         break;
@@ -271,7 +273,6 @@ public class TicTacToe {
 
         // reset cpu assist count
         int cpuAssistP1 = 0;
-    
 
         printCurrentBoard();
 
@@ -294,7 +295,7 @@ public class TicTacToe {
                         strikeCounterP1 += 1;
                         consecutiveStrikeP1 += 1;
                         
-                        if(strikeCounterP1 > 4 || consecutiveStrikeP1 > 2) {
+                        if(strikeCounterP1 > 4 || consecutiveStrikeP1 > 2) { // check strike counters after each invalid input
                             System.out.println("Player 1 forfeits by too many incorrect entries! CPU wins!");
                             break;
                         }
@@ -315,7 +316,7 @@ public class TicTacToe {
                             cpuAssistP1 += 1;
                             System.out.println("Player Uses CPU Assist! CPU Picks: " + slot);
 
-                        } else {
+                        } else { // if assist limit is reached
                             System.out.println("Player has used too many CPU Assists! Try again!");
                             continue;
                         }
